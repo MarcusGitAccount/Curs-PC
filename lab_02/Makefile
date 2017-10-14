@@ -19,7 +19,7 @@ all: run
 $(OBJDIR):
 	mkdir -p $(OBJDIR)
 
-# bulding the object files
+# bulding th object files
 $(OBJDIR)/%.o: $(SRCDIR)/%.c $(OBJDIR) $(DEPS)
 	$(CC) $(STD) -c -o $@ $< $(CFLAGS)
 
