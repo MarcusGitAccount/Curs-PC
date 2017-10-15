@@ -45,5 +45,12 @@ int main(void) {
 
   ex_01();
   ex_02();
+  
+  printf("Bit insertion: %d\n", bit_insertion(1024, 19, 2, 6));
+  printf("Bit insertion: %d\n", bit_insertion_2(1024, 19, 2, 6));
+  printf("Bit flip: %d\n", flip_bit_to_win(63 ^ 16 ^ 8));
+  
+  test_5(2, 3, 4, 128, 129, 1023, 1024);
+  printf("Flips to convert 29 and 15: %d\n", flips_to_convert(29, 15));
   return 0;
 }
