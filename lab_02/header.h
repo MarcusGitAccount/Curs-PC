@@ -7,6 +7,7 @@
 
 # define PI 3.14159265358979323846
 
+double aproximate_pi(long long radius);
 int min_int();
 int max_int();
 int get_bit(int nbr, int position);
