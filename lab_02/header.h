@@ -25,5 +25,7 @@ int flip_bit_to_win(int nbr);
 int is_power_of_two(int nbr);
 int flips_to_convert(int a, int b);
 void test_5(int first, ...);
+unsigned int pairwise_swap(unsigned int nbr);
+int transform_subunitary(double nbr, char result[32], int *length);
 
 #endif

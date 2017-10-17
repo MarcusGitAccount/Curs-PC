@@ -41,6 +41,9 @@ void bit_functions_debugging() {
 }
 
 int main(void) {
+  char result[32] = {0};
+  int  length = 0;
+  
   stdin = fopen("stdin", "r");
 
   ex_01();
@@ -52,5 +55,8 @@ int main(void) {
   
   test_5(2, 3, 4, 128, 129, 1023, 1024);
   printf("Flips to convert 29 and 15: %d\n", flips_to_convert(29, 15));
+  
+  transform_subunitary(0.102034, result, &length);
+  printf("%s %d\n", result, length);
   return 0;
 }

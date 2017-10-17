@@ -55,14 +55,40 @@ int bit_insertion_2(int n, int m, int i, int j) {
   // 1110 1101, 2->5 => 1100 0001
   // create mask => 1100 0011
   
-  int mask = ~0; // 1111 1111
+  int mask = ~0;          // 1111 1111
   
   mask <<= (j + 1);       // 1100 0000
   mask |= (1 << i) - 1;   // 0000 0011
   n &= mask;              // 1100 0001
-  m <<= i;  // move elements of m into position
+  m <<= i;                // move elements of m into position
   
-  return n | m;
+  return n | m;           // merge m into n's cleared positions
+}
+
+// 5.2 print double
+int transform_subunitary(double nbr, char result[32], int *length) {
+  // length = -1 => ERROR CODE
+  unsigned int index = 0;
+  
+  if (nbr < 0 || nbr >= 1)
+    return -1;
+  if (nbr == 0)
+    return 0;
+  
+  while (nbr > 0) {
+    printf("%f ", nbr);
+    if (*length >= 32)
+      return -1;
+      
+    nbr *= 2;
+    if (nbr > 0)
+      result[index++] = (nbr--, '1');
+    else
+      result[index++] = '0';
+    *length++;
+  }
+  
+  return 1;
 }
 
 // 5.3
@@ -98,6 +124,15 @@ int flip_bit_to_win(int nbr) {
   return max + 1;
 }
 
+// 5.4
+/*int next_smallest(int nbr) {
+  
+}
+
+int next_biggest(int nbr) {
+  
+}*/
+
 // 5.5
 int is_power_of_two(int nbr) {
   return (nbr & (nbr - 1)) == 0;
@@ -125,4 +160,57 @@ int flips_to_convert(int a, int b) {
   }
   
   return total;
+}
+
+// 5.7
+unsigned int pairwise_swap(unsigned int nbr) {
+  // this only works with unigned int
+  // because we need to perform a logial shit to the right
+  // working with 32 bit integers
+  
+  unsigned int odd  = nbr & 0x55555555; // 0101 0101 x 4 times (4 bytes, duh)
+  unsigned int even = nbr & 0xAAAAAAAA; // 1010 1010 x 4 times (4 bytes, duh)
+  
+  odd  <<= 1; // swtich obb bits to even positions
+  even >>= 1; // viceversa
+  
+  return odd | even; // combine them
+}
+
+// 5.8
+void draw_line(unsigned char screen[64], int width, int x1, int x2, int y) {
+  int offset_left, offset_right;
+  int start_left, start_right;
+  unsigned char start_mask, end_mask; 
+  
+  // first_left  = x1 + (8 - x1 % 8 - 1);
+  // first_right = x2 - (x2 % 8);
+ 
+  start_left  = x1 / 8;
+  offset_left = x1 % 8;
+  if (offset_left == 0) // beginning of byte
+    start_left++;
+    
+  start_right  = x2 / 8;
+  offset_right = x2 % 8;
+  if (offset_right == 7) // end of byte
+    start_right--;
+    
+  for (int index = start_left; index <= start_right; index)
+    screen[width / 8 * y + index] = 0xFF;
+    
+  start_mask = 0xFF >> (x1 % 8);
+  end_mask   = 0xFF << (7 - x % 8);
+  
+  if (x1 / 8 == x2 / 8) {
+    // in the same byte
+    unsigned char mask = start_mask & end_mask;
+    screen[width / 8 * y + x1  / 8] |= mask;
+  }
+  else {
+    if (offset_left != 0)
+      screen[width / 8 * y + offset_left - 1] |= start_mask;
+    if (offset_right != 7)
+      screen[width / 8  *y  + offset_right + 1] |= end_mask;
+  }
 }
