@@ -3,9 +3,9 @@ RM = rm
 
 OBJDIR = obj
 SRCDIR = src
+CFLAGS = -lm -Wall -I.
 
 # header paths are relative to the Makefile
-CFLAGS = -lm -Wall -I.
 STD = -std=c99
 DEPS = header.h
 # get all source files

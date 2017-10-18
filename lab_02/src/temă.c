@@ -1,8 +1,8 @@
 #include "header.h"
 
 void ex_01() {
-  int radius, x, y;
-  double perimetru, arie;
+  signed int radius, x, y;
+  unsigned double perimetru, arie;
   const double pi = aproximate_pi(1000);
   
   scanf("%d %d %d", &x, &y, &radius);

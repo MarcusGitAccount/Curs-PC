@@ -125,13 +125,78 @@ int flip_bit_to_win(int nbr) {
 }
 
 // 5.4
-/*int next_smallest(int nbr) {
+unsigned int next_biggest(unsigned int nbr) {
+  // findd the first non trailing zero
+  // (the first zero that is not followed by other zeroes)
+  // only works with unsigned values because we need logical right shifts
+  // 11010110
   
+  unsigned int auxiliar, mask;
+  int position, set_bits_count, bit;
+
+  position = set_bits_count = 0;
+  auxiliar = nbr;
+  
+  while (auxiliar >= 0) {
+    bit = auxiliar & 1;
+    set_bits_count = bit;
+    
+    if (bit == 0 && set_bits_count > 0)
+      break ;
+    auxiliar >>= 1;
+  }
+  
+  if (!auxiliar)
+    return (1 << 31); // MIN_INT -> error code
+    
+  // set the first non traling zero bit => 1101 1110
+  nbr |= 1 << position; 
+  // clear all the bits on the right of position => 1101 1000
+  mask = ~0 << (position - 1); // 1101 1000
+  nbr &= mask; 
+  nbr |=  (1 << --set_bits_count)
+  
+  return nbr;
 }
 
-int next_biggest(int nbr) {
+// previous
+unsigned int next_smallest(unsigned int nbr) {
+  /*
+    Count the number of trailing ones, cound the zeroes
+    following them and the position of the first non
+    trailing one
+  */
+  unsigned int mask, auxiliar;
+  int position, trailing_set, trailing_notset;
   
-}*/
+  auxiliar = nbr;
+  position = trailing_set = trailing_notset = 0;
+  
+  while (auxiliar & 1) {
+    trailing_set++;
+    auxiliar >>= 1;
+  }
+  
+  if (auxiliar == 0)
+    return (1 << 31); // error code
+    
+  while (auxiliar & 1 == 0) {
+    trailing_notset++;
+    position++;
+    auxiliar >>= 1;
+  }
+  
+  // clear bits after and including the position
+  mask = ~0;
+  mask <<= (position + 1);
+  // get trailig_set + 1 set bitss starting two positions 
+  // after 'position'
+  mask = (1 << (trailing_set + 1)) - 1;
+  mask <<= (trailing_notset - 1);
+  nbr |= mask;
+
+  return nbr;
+}
 
 // 5.5
 int is_power_of_two(int nbr) {
@@ -165,7 +230,7 @@ int flips_to_convert(int a, int b) {
 // 5.7
 unsigned int pairwise_swap(unsigned int nbr) {
   // this only works with unigned int
-  // because we need to perform a logial shit to the right
+  // because we need to perform a logial shift to the right
   // working with 32 bit integers
   
   unsigned int odd  = nbr & 0x55555555; // 0101 0101 x 4 times (4 bytes, duh)
