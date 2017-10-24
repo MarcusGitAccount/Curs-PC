@@ -19,9 +19,6 @@ double distance(point a, point b) {
   return sqrt(pow(a.x - b.x, 2) + pow(a.y - b.y, 2));
 }
 
-// switch cu zilele săptămânii
-// Temă: de pe tablă
-
 int main(void) {
   point a, b;
   
@@ -29,7 +26,11 @@ int main(void) {
   
   scanf("%lf %lf %lf %lf", &a.x, &a.y, &b.x, &b.y);
   printf("Distane between points: %f\n", distance(a, b));
-  printf("%d\n", int_is_negative(-10));
+  printf("-10 is negative: %d\n", int_is_negative(-10));
+  printf("Test for ex 1.0 from homework: %d\n", ex_01(13, 15, 14, 16));
+  printf("Test for ex 1.0 from homework: %d\n", ex_01(23,  1, 21, 23));
+  printf("Test for ex 2.1 from homework: %d\n", ex_02_model01(3));
+  printf("Test for ex 2.2 from homework: %d\n", ex_02_model02(3));
 
-  return 0;
+  return 10;
 }
