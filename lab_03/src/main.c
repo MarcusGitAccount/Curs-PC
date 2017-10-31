@@ -29,8 +29,10 @@ int main(void) {
   printf("-10 is negative: %d\n", int_is_negative(-10));
   printf("Test for ex 1.0 from homework: %d\n", ex_01(13, 15, 14, 16));
   printf("Test for ex 1.0 from homework: %d\n", ex_01(23,  1, 21, 23));
-  printf("Test for ex 2.1 from homework: %d\n", ex_02_model01(3));
-  printf("Test for ex 2.2 from homework: %d\n", ex_02_model02(3));
+  printf("Test for ex 1.0 from homework: %d\n", ex_01(1,  2,  1, 2));
+  printf("Test for ex 1.0 from homework: %d\n", ex_01(23, 6,  1, 2));
+  printf("Test for ex 2.1 from homework: %llu\n", ex_02_model01(20));
+  printf("Test for ex 2.2 from homework: %llu\n", ex_02_model02(20));
 
   return 10;
 }

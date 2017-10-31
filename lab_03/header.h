@@ -11,7 +11,7 @@ typedef struct point{
 } point;
 
 int ex_01(int start_1, int end_1, int start_2, int end_2);
-unsigned int ex_02_model01(short int k);
-unsigned int ex_02_model02(short int k);
+unsigned long long int ex_02_model01(unsigned long long int size);
+unsigned long long int ex_02_model02(unsigned long long int size);
 
 #endif
