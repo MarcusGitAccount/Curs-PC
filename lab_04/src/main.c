@@ -79,7 +79,7 @@ short int nr_cifre(unsigned long long nbr) {
 }
 
 int main(void) {
-  unsigned long long int nbr;
+   unsigned long long int nbr;
   unsigned int n;
   
   stdin = fopen("stdin", "r");
@@ -91,15 +91,13 @@ int main(void) {
   
   printf("%lld has %d digits.\n", nbr, nr_cifre(nbr));
   printf("Cmmdc: %u\n", cmmdc(-24, 16));
-  printf("Power: %Lf\n", _pow(0, 0));
+  printf("Power: %Lf\n", _pow(2, -2));
   //print_ascii_table();
   
+  
   scanf("%d", &n);
-  printf("\nHomework solutions:\n\n");
-  solve_a(n);
-  solve_b(n);
-  solve_c(n);
-  solve_d(n);
+  printf("Homework solutions:\n\n");
+
 
   return 0;
 }
