@@ -68,11 +68,11 @@ void sort(float* array, int size) {
   for (int i = 0; i < size - 1; i++)
     for (int j = i + 1; j < size; j++)
       if (aarray[i] > array[j])
-        swap(&array[i], &array[j]);
+        float_swap(&array[i], &array[j]);
  
 }
 
-void merge(float* a, int n, float* b, int m, float* c) {
+int merge(float* a, int n, float* b, int m, float* c) {
  // sort(a, n);
  // sort(b, m);
  
@@ -92,4 +92,9 @@ void merge(float* a, int n, float* b, int m, float* c) {
   
   while (j < m)
     c[current++] = b[j++];
+  
+  // error handling
+  if (current - 1 != n + m)
+    return 0;
+  return 1;  
 }
