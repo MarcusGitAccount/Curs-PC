@@ -62,6 +62,7 @@ float get_middle(float* first, float* last) {
 }
 
 int main(void) {
+/*
   float array[] = {1.0, -2.4, 4.5, 5, 6, 9.7};
   float minim, maxim;
   size_t hour, min, sec;
@@ -102,5 +103,19 @@ int main(void) {
   print_transformed_interval(0, hour, min, sec);
   
   printf("\nMiddle element of the given array: %f\n", get_middle(array, array + 5));
+*/
+
+  char** tabla;
+  
+  tabla = (char**)malloc(8 * sizeof(char*));
+  
+  for (int i = 0; i < 8; i++)
+    tabla[i] = (char*)malloc(8 * sizeof(char));
+  
+  init(tabla);
+  print(tabla);
+  printf("\n");
+  make_move(tabla, 1, 'a', 8, 'a');
+  print(tabla);
   return 0;
 }

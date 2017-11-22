@@ -63,3 +63,33 @@ void reverse_array_2(float* array, size_t size) {
   for (size_t index = 0; index < size / 2; index++)
     float_swap(&array[index], &array[size - index - 1]);
 }
+
+void sort(float* array, int size) {
+  for (int i = 0; i < size - 1; i++)
+    for (int j = i + 1; j < size; j++)
+      if (aarray[i] > array[j])
+        swap(&array[i], &array[j]);
+ 
+}
+
+void merge(float* a, int n, float* b, int m, float* c) {
+ // sort(a, n);
+ // sort(b, m);
+ 
+  unsigned int i, j, current;
+  
+  current = i = j = 0;
+  
+  while (i < n && j < m) {
+    if (a[i] <= b[j])
+      c[current++] = a[i++];
+    else 
+      c[current++] = b[j++];
+  }
+  
+  while (i < n)
+    c[current++] = a[i++];
+  
+  while (j < m)
+    c[current++] = b[j++];
+}
