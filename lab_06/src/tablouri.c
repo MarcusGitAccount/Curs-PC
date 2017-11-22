@@ -10,7 +10,7 @@ float suma(float tablou[], size_t size) {
   return total;
 }
 
-void afisare(float tablou[], size_t size) {
+void afisare(float* tablou, int size) {
   for (size_t index = 0; index < size; index++)
     printf("%f ", tablou[index]);
   
@@ -40,6 +40,12 @@ float max_tablou(float tablou[], size_t size) {
   return max;
 }
 
+void afisare_int(int* array, int size) {
+  for (int i = 0; i < size; i++)
+    printf("%d ", array[i]);
+  printf("\n");
+}
+
 // swap 2 float variables
 void float_swap(float* a, float* b) {
   float temp = *a;
@@ -67,16 +73,22 @@ void reverse_array_2(float* array, size_t size) {
 void sort(float* array, int size) {
   for (int i = 0; i < size - 1; i++)
     for (int j = i + 1; j < size; j++)
-      if (aarray[i] > array[j])
+      if (array[i] > array[j])
         float_swap(&array[i], &array[j]);
  
 }
 
-int merge(float* a, int n, float* b, int m, float* c) {
- // sort(a, n);
- // sort(b, m);
- 
+/*
+  void* malloc(size)
+  void* calloc(size, sizeof);
+  free
+  malloc didn't work properly => return NULL
+  malloc creates memory on the heap, not on the stack, like the static way
+*/
+
+float* merge(float* a, int n, float* b, int m) {
   unsigned int i, j, current;
+  float* c = (float*)malloc((m + n) * sizeof(float));
   
   current = i = j = 0;
   
@@ -92,9 +104,36 @@ int merge(float* a, int n, float* b, int m, float* c) {
   
   while (j < m)
     c[current++] = b[j++];
+
+  return c;  
+}
+
+bool is_prime(int nbr) {
+  if (nbr < 2)
+    return false;
+  if (nbr == 2)
+    return true;
+  if ((nbr & 1) == 0)  
+    return false;
   
-  // error handling
-  if (current - 1 != n + m)
-    return 0;
-  return 1;  
+  for (unsigned int factor = 3; factor * factor <= nbr; factor += 2)
+    if (nbr % factor == 0)
+      return false;
+      
+  return true;
+}
+
+int* first_n_primes(int n) {
+  int* result = (int*)malloc(n * sizeof(int));
+  unsigned int current = 2;
+  unsigned int count   = 0;
+
+  while (count < n) {
+    if (is_prime(current))
+      result[count++] = current; 
+    
+    current++;
+  }
+  
+  return result;
 }
