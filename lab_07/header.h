@@ -6,6 +6,15 @@
 # include <stdbool.h>
 # include <math.h>
 
+# define  KRED "\x1B[31m"
+# define  KGRN "\x1B[32m"
+# define  KYEL "\x1B[33m"
+# define  KBLU "\x1B[34m"
+# define  KMAG "\x1B[35m"
+# define  KCYN "\x1B[36m"
+# define  KWHT "\x1B[37m"
+# define RESET "\033[0m"
+
   typedef   signed          char  int8_t;
   typedef   signed     short int int16_t;
   typedef   signed           int int32_t;
@@ -18,6 +27,8 @@
 
 # define EMPTY_PIECE ('0')
 
+  void swap_u8(uint8_t* a, uint8_t* b);
+  void swap_u32(uint32_t* a, uint32_t* b);
   void convert_position(uint8_t* col, int* row);
   bool get_player(uint8_t** tabla, uint8_t col, int row);
   bool in_bounds(uint8_t** tabla, uint8_t col, int row);
