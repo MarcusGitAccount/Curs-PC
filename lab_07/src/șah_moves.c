@@ -1,15 +1,17 @@
 #include "header.h"
 
+// get_player(..) => 0 - black p
+// get_player(..) => 1 - white P
+
 bool get_player(uint8_t** tabla, uint8_t col, int row) {
   uint8_t piece;
   
   // requires prior conversion
-  convert_position(&col, &row);
   piece = tabla[row][col];
 
   if (piece >= 'A' && piece <= 'Z')
-    return false;
-  return true;
+    return true;
+  return false;
 }
 
 bool in_bounds(uint8_t** tabla, uint8_t col, int row) {
@@ -23,9 +25,12 @@ bool in_bounds(uint8_t** tabla, uint8_t col, int row) {
 bool check_basic_moving(uint8_t** tabla, uint8_t c1, int r1, uint8_t c2, int r2) {
   // requires prior conversion
 
+  // printf("%d\n", get_player(tabla, c1, r1));
+
   const bool current_player = get_player(tabla, c1, r1);
-  const uint8_t enemy_king = (!current_player) * 32 + 'K';
+  const uint8_t enemy_king = (!current_player) * 32 + (uint8_t  )'K';
   
+  printf("King: %u\n", enemy_king);
   // check if in bounds
   if (!in_bounds(tabla, c1, r1) || !in_bounds(tabla, c2, r2))
     return false;
@@ -33,6 +38,7 @@ bool check_basic_moving(uint8_t** tabla, uint8_t c1, int r1, uint8_t c2, int r2)
   // cannot take the place of an existing piece with the same colour
   if (current_player == get_player(tabla, c2, r2))
     return false;
+  printf("%u %u %u %u\n", r1, c1, r2, c2);
     
   // can't take over the king  
   if (tabla[c2][r2] == enemy_king)
@@ -48,21 +54,37 @@ bool move_rook(uint8_t** tabla, uint8_t c1, int r1, uint8_t c2, int r2) {
   if (!check_basic_moving(tabla, c1, r1, c2, r2))
     return false;
   
+  printf("basic moving checked\n");
   // the rook can only move on the row or on the column
   if (c1 != c2 && r1 != c2)
     return false;
     
   // pieces on the way of the move
   if (r1 == r2) {
-    for (int j = c1; j <= c2; j++)
+    uint8_t start, fin;
+
+    start = c1;
+    fin = c2;
+    if (start > fin)
+      swap_u8(&fin, &start);
+
+    for (int j = start; j <= fin; j++)
       if (tabla[r1][j] != EMPTY_PIECE)
         return false;
   }
-  else
-    for (int i = r1; i <= r2; i++)
+  else {
+    uint32_t start, fin;
+
+    start = r1;
+    fin = r2;
+    if (start > fin)
+      swap_u32(&fin, &start);
+
+    for (int i = start; i <= fin; i++)
       if (tabla[i][c1] != EMPTY_PIECE)
         return false;
-  
+  }
+
   return true;
 }
 
