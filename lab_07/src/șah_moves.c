@@ -1,7 +1,5 @@
 #include "header.h"
 
-// https://www.wholesalechess.com/pages/new-to-chess/pieces.html
-
 bool get_player(uint8_t** tabla, uint8_t col, int row) {
   uint8_t piece;
   
