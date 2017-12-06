@@ -37,8 +37,12 @@ void convert_position(uint8_t* col, int* row) {
   *row  = 8 - *row;
 }
 
-void init(uint8_t** tabla) {
-  // set middle
+uint8_t** init_game() {
+  uint8_t** tabla = malloc(8 * sizeof(uint8_t*));
+  
+  for (int i = 0; i < 8; i++)
+    tabla[i] = malloc(8 * sizeof(uint8_t));
+
   for (int i = 2 ; i < 6; i++)
     for (int j = 0; j < 8; j++)
       tabla[i][j] = EMPTY_PIECE;
@@ -63,6 +67,7 @@ void init(uint8_t** tabla) {
   tabla[0][4] = 'k';
   tabla[7][4] = 'K';
   
+  return tabla;
 }
 
 void print(uint8_t** tabla) {
@@ -82,7 +87,7 @@ void print(uint8_t** tabla) {
   
   for (uint8_t i = 1; i < 8; i++)
     printf("%c ", 'a' + i);
-  printf("\n");
+  printf("\n\n");
 }
 
 void find(uint8_t** tabla, uint8_t piece, uint8_t* cols, int* rows) {
@@ -109,8 +114,6 @@ bool is_valid_move(uint8_t **tabla, uint8_t c1, int r1, uint8_t c2, int r2) {
   
   piece = to_lower(tabla[8 - r1][c1 - 'a']);
   
-  printf("Piece: %c\n", piece);
-  
   if (piece == 'p')
     return move_pawn(tabla, c1, r1, c2, r2);
   if (piece == 'r')
@@ -126,11 +129,12 @@ void make_move(uint8_t** tabla, int start_linie, uint8_t start_col, int fin_lini
     exit(1) ;
   }
   
-  printf("Hello there\n");
   convert_position(&start_col, &start_linie);
   convert_position(&fin_col,   &fin_linie);
  
   tabla[fin_linie][fin_col] = tabla[start_linie][start_col];
   tabla[start_linie][start_col] = EMPTY_PIECE;
+
+  print(tabla);
 }
 

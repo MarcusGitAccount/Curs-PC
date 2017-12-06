@@ -24,13 +24,9 @@ bool in_bounds(uint8_t** tabla, uint8_t col, int row) {
 
 bool check_basic_moving(uint8_t** tabla, uint8_t c1, int r1, uint8_t c2, int r2) {
   // requires prior conversion
-
-  // printf("%d\n", get_player(tabla, c1, r1));
-
   const bool current_player = get_player(tabla, c1, r1);
   const uint8_t enemy_king = (!current_player) * 32 + (uint8_t  )'K';
   
-  printf("King: %u\n", enemy_king);
   // check if in bounds
   if (!in_bounds(tabla, c1, r1) || !in_bounds(tabla, c2, r2))
     return false;
@@ -38,7 +34,7 @@ bool check_basic_moving(uint8_t** tabla, uint8_t c1, int r1, uint8_t c2, int r2)
   // cannot take the place of an existing piece with the same colour
   if (current_player == get_player(tabla, c2, r2))
     return false;
-  printf("%u %u %u %u\n", r1, c1, r2, c2);
+  // printf("%u %u %u %u\n", r1, c1, r2, c2);
     
   // can't take over the king  
   if (tabla[c2][r2] == enemy_king)
@@ -54,7 +50,6 @@ bool move_rook(uint8_t** tabla, uint8_t c1, int r1, uint8_t c2, int r2) {
   if (!check_basic_moving(tabla, c1, r1, c2, r2))
     return false;
   
-  printf("basic moving checked\n");
   // the rook can only move on the row or on the column
   if (c1 != c2 && r1 != c2)
     return false;
@@ -66,10 +61,10 @@ bool move_rook(uint8_t** tabla, uint8_t c1, int r1, uint8_t c2, int r2) {
     start = c1;
     fin = c2;
     if (start > fin)
-      swap_u8(&fin, &start);
+      swap_u8(&start, &fin);
 
     for (int j = start; j <= fin; j++)
-      if (tabla[r1][j] != EMPTY_PIECE)
+      if (tabla[r1][j] != EMPTY_PIECE && j != c1)
         return false;
   }
   else {
@@ -78,13 +73,13 @@ bool move_rook(uint8_t** tabla, uint8_t c1, int r1, uint8_t c2, int r2) {
     start = r1;
     fin = r2;
     if (start > fin)
-      swap_u32(&fin, &start);
+      swap_u32(&start, &fin);
 
+    // printf("Rookieee %d %d\n", start, fin);
     for (int i = start; i <= fin; i++)
-      if (tabla[i][c1] != EMPTY_PIECE)
+      if (tabla[i][c1] != EMPTY_PIECE && i != r1)
         return false;
   }
-
   return true;
 }
 
@@ -118,17 +113,16 @@ bool move_pawn(uint8_t** tabla, uint8_t c1, int r1, uint8_t c2, int r2) {
       return false;
   }
   else if (row_movement == 2) {
-    const int middle_row = 1 * (-1 * current_player);
+    const int middle_row = (r1 + r2) / 2;
     
     if (col_movement != 0)
       return false;
-    if (c1 != starting_line)
+    if (r1 != starting_line)
       return false;
     // clear road, please
     if (tabla[r2][c2] != EMPTY_PIECE || tabla[middle_row][c2] != EMPTY_PIECE)
       return false;
-    return false;
   }
-  
+
   return true;
 }

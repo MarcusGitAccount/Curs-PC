@@ -36,7 +36,7 @@
   bool move_rook(uint8_t** tabla, uint8_t c1, int r1, uint8_t c2, int r2);
   bool move_pawn(uint8_t** tabla, uint8_t c1, int r1, uint8_t c2, int r2);
   
-  void  init(uint8_t** tabla);
+  uint8_t**  init_game();
   void print(uint8_t** tabla);
   void make_move(uint8_t** tabla, int start_linie, uint8_t start_col, int fin_linie, uint8_t fin_col);
 

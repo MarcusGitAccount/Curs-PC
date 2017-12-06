@@ -105,18 +105,11 @@ int main(void) {
   printf("\nMiddle element of the given array: %f\n", get_middle(array, array + 5));
 */
 
-  uint8_t** tabla;
-  
-  tabla = malloc(8 * sizeof(uint8_t*));
-  
-  for (int i = 0; i < 8; i++)
-    tabla[i] = malloc(8 * sizeof(uint8_t));
-  
-  init(tabla);
-  print(tabla);
-  printf("\n");
-  make_move(tabla, 1, 'a', 8, 'a');
-  print(tabla);
+  uint8_t** tabla = init_game();
 
+  print(tabla);
+  make_move(tabla, 2, 'a', 4, 'a');
+  make_move(tabla, 1, 'a', 3, 'a');
+  make_move(tabla, 3, 'a', 3, 'h');
   return 0;
 }
