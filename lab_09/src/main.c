@@ -33,7 +33,7 @@ int max_in_array_2(float* array, int n) {
 
   position = max_in_array_2(array + 1, n - 1);
 
-  if (array[0] > a[position + 1])
+  if (array[0] > array[position + 1])
     return 0;
   return position + 1;
 }
