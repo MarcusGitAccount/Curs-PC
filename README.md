@@ -1,6 +1,7 @@
 # Curs-PC
 
-Laboratoare PC anul I CTI UTCN.
+- C programming laboratory work at University
+- first year course
 
 ### Usage
 

@@ -55,12 +55,38 @@ void test_deletion_2() {
   printf("After:\n%s\n", str);
 }
 
-int main(void) {
-  test_strlen();
-  test_strchr();
-  test_deletion_2();
+int main(int argc, char** argv) {
+  // ctrl + k, ctrl + c => comment block
+  // ctrl + k, ctrl + u => uncomment block
+  // Home - get cursor to beggining of the line
+  // End -  get cursor to the end of the line
+
+  // test_strlen();
+  // test_strchr();
+  // test_deletion_2();
   
-  printf("Substr first: %s\n", sub_str1("not good", 4, 8));
-  printf("Substr first: %s\n", sub_str2("not good at all", 4, 4));
+  // printf("Substr first: %s\n", sub_str1("not good", 4, 8));
+  // printf("Substr first: %s\n", sub_str2("not good at all", 4, 4));
+
+  if (argc == 3) {  
+    char str[50] = "float x, y; float z; int x = 2";
+
+    printf("Replacement before: %s\n", str);
+    replace_str(str, argv[1], argv[2]);
+    printf("Replacement after: %s\n", str);
+  }
+  
+  // char str[] = "for(int i=0";
+
+  // del_substr(str, 4, 8);
+  // del_substr(str, 0, 4);
+  // printf("%s\n", str);
+
+
+  // insert(str, 2, 'A');
+  // insert(str, 2, 'A');
+  // insert(str, 2, 'A');
+  // insert(str, 2, 'A');
+  // insert(str, 2, 'A');
   return 0;
 }
