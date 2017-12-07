@@ -19,21 +19,23 @@ char* str_chr(char* str, char character) {
   return str + index;
 }
 
-unsigned int find_char(char* str, char character) {
-  unsigned index = 0;
+int find_char(char* str, char character) {
+  unsigned int index = 0;
   
-  while (str[index] != character)
+  // printf("Have to find: %c in \"%s\" \n", character, str);
+  while (str[index] != character && str[index] != 0)
     index++;
   
-  if (str[index] == 0)
+  // printf("Position: %c\n", str[index]);
+  if (str[index] == '\0')
     return -1;
   return index;
 }
 
-unsigned int find_char_rev(char* str, char character) {
-  unsigned index = str_len(str);
+int find_char_rev(char* str, char character) {
+  int index = str_len(str);
   
-  while (str[index] != character)
+  while (str[index] != character && index >= 0)
     index--;
   
   if (index < 0)
@@ -197,4 +199,74 @@ void replace_str(char* destination, char* target, char* replace) {
     next = str_str(destination + last, target);
     last = last + next;
   }
+}
+
+char* str_tok(char* str, char* delimiters) {
+  static char* str_left = NULL;
+  unsigned int i, j, start;
+  char* result;
+
+  if (str != NULL) {
+    const unsigned int size = str_len(str);
+    unsigned int index;
+
+    free(str_left);
+    str_left = malloc(size);
+
+    for (index = 0; index < size; index++)
+      str_left[index] = str[index];
+    str_left[index] = '\0';
+  }
+
+  // printf("Current: %s\n", str_left);
+  if (str_left == NULL)
+    return NULL;
+
+  i = 0;
+  while (find_char(delimiters, str_left[i]) != -1 && str_left[i] != 0)
+    i++;
+
+  start = i;
+  while (find_char(delimiters, str_left[i]) == -1 && str_left[i] != 0)
+    i++;
+
+  result = sub_str1(str_left, start, i);
+  for (j = i; str_left[j] != '\0'; j++)
+    str_left[j - i] = str_left[j];
+  str_left[j - i] = '\0';
+
+  if (*str_left == '\0')
+    str_left = NULL;
+
+  return result;
+}
+
+char** separate_path(char* path, unsigned int* total) {
+  char delimiters[] = "\\.:";
+  char** result; 
+  char*  current;
+  unsigned int size = 0;
+
+  for (unsigned int i = 0; path[i] != 0; i++) {
+    if (find_char(delimiters, path[i]) > -1)
+      size++;
+  }
+
+  if (size == 0) {
+    size = *total = 1;
+    result = malloc(sizeof(char**) * size);
+    result[0] = path;
+
+    return result;
+  }
+
+  result = malloc(sizeof(char**) * size);   
+  current = str_tok(path, delimiters);
+  for (unsigned int i = 0; i < size; i++) {
+    result[i] = current;
+    current = str_tok(NULL, delimiters);
+  }
+  
+  *total = size;
+  return result;
 }

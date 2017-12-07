@@ -68,12 +68,13 @@ int main(int argc, char** argv) {
   // printf("Substr first: %s\n", sub_str1("not good", 4, 8));
   // printf("Substr first: %s\n", sub_str2("not good at all", 4, 4));
 
-  if (argc == 3) {  
-    char str[50] = "float x, y; float z; int x = 2";
+  if (argc == 2) {  
+    unsigned int size;
+    char** split = separate_path(argv[1], &size);
 
-    printf("Replacement before: %s\n", str);
-    replace_str(str, argv[1], argv[2]);
-    printf("Replacement after: %s\n", str);
+    for (unsigned int i = 0; i < size; i++) {
+      printf("%s\n", split[i]);
+    }
   }
   
   // char str[] = "for(int i=0";
@@ -88,5 +89,17 @@ int main(int argc, char** argv) {
   // insert(str, 2, 'A');
   // insert(str, 2, 'A');
   // insert(str, 2, 'A');
+
+  // char str[] = "c:\\Program Files\\CodeBlocks\\bin\\cb.exe";
+  // char* delimiters = "\\.:";
+ 
+  // char* piece = str_tok(str,  delimiters);
+  // int i = 0;
+  // while (piece != NULL) {
+  //   printf("%s\n", piece);
+  //   i++;
+  //   piece = str_tok(NULL,  delimiters);
+  // }
+
   return 0;
 }

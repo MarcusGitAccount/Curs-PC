@@ -9,8 +9,8 @@
 
   unsigned int str_len(char* str);
   char* str_chr(char* str, char character);
-  unsigned int find_char(char* str, char character);
-  unsigned int find_char_rev(char* str, char character);
+  int find_char(char* str, char character);
+  int find_char_rev(char* str, char character);
   void del_char(char* str, unsigned int position);
   //void del_all(char* str, char character);
   void del_all(char* str, bool (*f)(char));
@@ -24,5 +24,7 @@
   char* str_cat(char* first, char* second);
   void del_substr(char* str, unsigned int start, unsigned int end);
   void replace_str(char* destination, char* target, char* replace);
+  char* str_tok(char* str, char* delimiters);
+  char** separate_path(char* path, unsigned int* size);
 
 #endif
