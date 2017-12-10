@@ -270,3 +270,65 @@ char** separate_path(char* path, unsigned int* total) {
   *total = size;
   return result;
 }
+
+void sort_strings(char** array, int left, int right) {
+  int start, end;
+  char* pivot = array[(left + right) / 2];
+
+  start = left;
+  end = right;
+
+  while (start <= end) {
+    while (str_cmp(array[start], pivot) < 0)
+      start++;
+    while (str_cmp(pivot, array[end]) < 0)
+      end--;
+
+    if (start <= end) {
+      char* temp = array[start];
+
+      array[start] = array[end];
+      array[end] = temp;
+      start++;
+      end--;
+    }
+
+    if (end > left)
+      sort_strings(array, left, end);
+    if (start < right)
+      sort_strings(array, start, right);
+  }
+}
+
+void problem_14() {
+  unsigned int size;
+  char** array;
+
+  scanf("%u", &size);
+
+  array = malloc(sizeof(char*) * size);
+  for (unsigned i = 0; i < size; i++) {
+    array[i] = malloc(75);
+    scanf("%s", array[i]);
+  }
+
+  sort_strings(array, 0, size - 1);
+
+  for (unsigned i = 0; i < size; i++) {
+    printf("%d: %s\n", i, array[i]);
+  }
+
+  for (unsigned int i = 0; i < size; i++)
+    free(array[i]);
+  free(array);
+}
+
+unsigned int code_combinations(int* weights, unsigned int size, unsigned int digit) {
+  int current;
+
+  if (size == 0)
+    return (digit == 0) ? 1 : 0;
+
+  current = weights[size - 1];
+  return code_combinations(weights, size - 1, digit) + code_combinations(weights, size - 1, digit - current);
+}

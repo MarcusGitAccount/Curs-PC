@@ -68,14 +68,14 @@ int main(int argc, char** argv) {
   // printf("Substr first: %s\n", sub_str1("not good", 4, 8));
   // printf("Substr first: %s\n", sub_str2("not good at all", 4, 4));
 
-  if (argc == 2) {  
-    unsigned int size;
-    char** split = separate_path(argv[1], &size);
+  // if (argc == 2) {  
+  //   unsigned int size;
+  //   char** split = separate_path(argv[1], &size);
 
-    for (unsigned int i = 0; i < size; i++) {
-      printf("%s\n", split[i]);
-    }
-  }
+  //   for (unsigned int i = 0; i < size; i++) {
+  //     printf("%s\n", split[i]);
+  //   }
+  // }
   
   // char str[] = "for(int i=0";
 
@@ -101,5 +101,36 @@ int main(int argc, char** argv) {
   //   piece = str_tok(NULL,  delimiters);
   // }
 
+  problem_14();
+  
+  // int weights[] = {4, 2, 3, -1};
+  // unsigned int size = 4;
+  // unsigned int total = 1;
+
+  // for (unsigned int digit = 0; digit < 10; digit++) {
+  //   const int current = code_combinations(weights, size, digit);
+
+  //   printf("Number of combinations for the given code and digit %u: %u\n", digit, current);
+  //   total *= current;
+  // }
+
+  // printf("Number of total combinations for decimal digits: %u\n", total);
+
+  // char a[50] = "Ana are mre";
+  // char b[50] = "ba nu";
+  // char* temp = a;
+
+  // *a = *b;
+  // *b = *temp;
+
+  // printf("%s\n", a);
+  // printf("%s\n", b);
+
+  // int array[] = {2, -1, 5, 4, 3, 7, 10, 9};
+  // unsigned int size = 8;
+
+  // sort_numbers(array, 0, size - 1);
+  // for (unsigned int i = 0; i < size; i++)
+  //   printf("%d\n", array[i]);
   return 0;
 }

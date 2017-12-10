@@ -4,6 +4,13 @@
     "stdbool.h": "c",
     "math.h": "c",
     "stdint.h": "c",
-    "stdlib.h": "c"
+    "stdlib.h": "c",
+    "utility": "c",
+    "xutility": "c",
+    "initializer_list": "c",
+    "type_traits": "c",
+    "xstring": "c",
+    "xiosbase": "c",
+    "string.h": "c"
   }
 }

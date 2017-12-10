@@ -26,5 +26,9 @@
   void replace_str(char* destination, char* target, char* replace);
   char* str_tok(char* str, char* delimiters);
   char** separate_path(char* path, unsigned int* size);
+  void sort_numbers(int* array, int left, int right);
+
+  void problem_14();
+  unsigned int code_combinations(int* weights, unsigned int size, unsigned int digit);
 
 #endif
