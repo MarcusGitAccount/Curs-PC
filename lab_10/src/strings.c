@@ -195,6 +195,7 @@ void replace_str(char* destination, char* target, char* replace) {
       j++;
     }
 
+    // float int
     last += padding_right;
     next = str_str(destination + last, target);
     last = last + next;
@@ -254,7 +255,7 @@ char** separate_path(char* path, unsigned int* total) {
 
   if (size == 0) {
     size = *total = 1;
-    result = malloc(sizeof(char**) * size);
+    result = malloc(sizeof(char**) * 1);
     result[0] = path;
 
     return result;

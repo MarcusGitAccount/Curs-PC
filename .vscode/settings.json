@@ -11,6 +11,9 @@
     "type_traits": "c",
     "xstring": "c",
     "xiosbase": "c",
-    "string.h": "c"
+    "string.h": "c",
+    "xlocale": "c",
+    "stdio.h": "c",
+    "cmath": "c"
   }
 }
