@@ -59,4 +59,4 @@ complex_t moivre(complex_t a, double b) {
 
   return to_carth(result);
 }
-// ridicare la n => moivrep
+// ridicare la n => moivre
