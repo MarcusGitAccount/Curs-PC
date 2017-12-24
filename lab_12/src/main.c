@@ -78,11 +78,14 @@ void split_image(BITMAPFILEHEADER_t* file_header, BITMAPINFOHEADER_t* info_heade
 
   for (unsigned int row = 0; row < info_header->biHeight; row++) {
     for (unsigned int col = 0; col < icopy_header->biWidth; col++) {
-      pixels[index++] = bitmap_image[row + col];
+      pixels[index++] = bitmap_image[row * info_header->biWidth + col];
     }
   }
 
   save_image(fcopy_header, icopy_header, pixels, filename);
+  free(fcopy_header);
+  free(icopy_header);
+  free(pixels);
 }
 
 void add_cross_image(BITMAPFILEHEADER_t* file_header, BITMAPINFOHEADER_t* info_header, PIXEL_t* bitmap_image, PIXEL_t color, const char* filename) {
@@ -153,6 +156,7 @@ int main(void) {
   split_image(file_header, info_header, bitmap_image, 4, "images/ratio4.bmp");
   split_image(file_header, info_header, bitmap_image, 8, "images/ratio8.bmp");
   add_cross_image(file_header, info_header, bitmap_image, (PIXEL_t){0, 0, 0}, "images/crossblack.bmp");
+  add_cross_image(file_header, info_header, bitmap_image, (PIXEL_t){255, 0, 0}, "images/crossblue.bmp");
 
   fclose(file);
   return 0;
