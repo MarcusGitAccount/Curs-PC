@@ -197,7 +197,7 @@ uint64_t count_primes(uint64_t limit) {
     Node*    prime = queue->first->next; // pass 2 since only odd maps are represented in the sieve
     uint64_t count = 0;
 
-    printf("Limits: %llu -> %llu\n", start, end);
+    //printf("Limits: %llu -> %llu\n", start, end);
     for (uint64_t index = 0; index < delta / SIZE + 1; index++)
       current_sieve[index] = 0;
 
@@ -215,7 +215,7 @@ uint64_t count_primes(uint64_t limit) {
         const uint64_t position = (number - start) / 2;
         
         if (get_bit(current_sieve, position) == 0) {
-          printf("Position debug: %llu %llu %d\n", number, position, get_bit(current_sieve, position));
+          // printf("Position debug: %llu %llu %d\n", number, position, get_bit(current_sieve, position));
           set_bit(current_sieve, position);
           count++;
         }
@@ -230,7 +230,7 @@ uint64_t count_primes(uint64_t limit) {
     start += delta;
     end   += delta;
 
-    printf("%sCount, total and delta: %llu %llu %llu\n%s", KRED, count, non_primes_counter, delta , RESET);
+    //printf("%sCount, total and delta: %llu %llu %llu\n%s", KRED, count, non_primes_counter, delta , RESET);
     if (end > limit)
       end = limit;
   }

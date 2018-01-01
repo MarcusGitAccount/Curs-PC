@@ -13,7 +13,7 @@ SRC = $(wildcard $(SRCDIR)/*.c)
 # for each .c file create an .o file and put it in the obj/
 OBJ = $(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SRC))
 
-all: run
+all: build
 
 # creating the obj/ directory if doesn't exist
 $(OBJDIR):
@@ -23,7 +23,7 @@ $(OBJDIR):
 $(OBJDIR)/%.o: $(SRCDIR)/%.c $(OBJDIR) $(DEPS)
 	$(CC) $(STD) -c -o $@ $< $(CFLAGS)
 
-run: $(OBJ)
+build: $(OBJ)
 	$(CC) $(STD) -o $@ $^ $(CFLAGS)
 
 .PHONY:
