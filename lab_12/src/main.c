@@ -1,9 +1,9 @@
 #include "header.h"
 
 void print_file_header(BITMAPFILEHEADER_t* file_header) {
-  printf("bfType     %d\n",   file_header->bfType);
-  printf("bfSize     %u\n",   file_header->bfSize);
-  printf("bfOffBits  %u\n\n", file_header->bfOffBits);
+  printf("bfType          %d\n",   file_header->bfType);
+  printf("bfSize          %u\n",   file_header->bfSize);
+  printf("bfOffBits       %u\n\n", file_header->bfOffBits);
 }
 
 void print_info_header(BITMAPINFOHEADER_t* info_header) {
@@ -114,31 +114,26 @@ void add_cross_image(BITMAPFILEHEADER_t* file_header, BITMAPINFOHEADER_t* info_h
   save_image(file_header, info_header, pixels, filename);
 }
 
-int main(void) {
-  BITMAPFILEHEADER_t* file_header;
-  BITMAPINFOHEADER_t* info_header;
+PIXEL_t* read_bitmap(BITMAPFILEHEADER_t* file_header, BITMAPINFOHEADER_t* info_header, const char* filename) {
   FILE_t*  file; 
   PIXEL_t* bitmap_image;
   unsigned int pixels_count;
 
-  file_header = malloc(sizeof(BITMAPFILEHEADER_t));
-  info_header = malloc(sizeof(BITMAPINFOHEADER_t));
-
-  if ((file = fopen("images/red.bmp", "rb")) == NULL) {
+  if ((file = fopen(filename, "rb")) == NULL) {
     printf("Error while openning bitmap file\n");
-    return -1;
+    return NULL;
   }
 
   fread(file_header, sizeof(BITMAPFILEHEADER_t), 1, file);
   if (file_header->bfType != 0x4D42) {
     printf("File is not a bitmap");
-    return -1;
+    return NULL;
   }
 
   pixels_count = info_header->biSizeImage;
   fread(info_header, sizeof(BITMAPINFOHEADER_t), 1, file);
   fseek(file, file_header->bfOffBits, SEEK_SET);
-
+  
   print_file_header(file_header);
   print_info_header(info_header);
 
@@ -148,6 +143,19 @@ int main(void) {
   bitmap_image = malloc(sizeof(PIXEL_t) * pixels_count);
 
   fread(bitmap_image, sizeof(PIXEL_t), pixels_count, file);
+  fclose(file);
+
+  return bitmap_image;
+}
+
+int main(void) {
+  BITMAPFILEHEADER_t* file_header;
+  BITMAPINFOHEADER_t* info_header;
+  PIXEL_t* bitmap_image;
+
+  file_header  = malloc(sizeof(BITMAPFILEHEADER_t));
+  info_header  = malloc(sizeof(BITMAPINFOHEADER_t));
+  bitmap_image = read_bitmap(file_header, info_header, "images/red.bmp");
   
   save_image(file_header, info_header, bitmap_image, "images/redcopy.bmp");
   one_color_image(file_header, info_header, (PIXEL_t){255, 255, 255}, "images/white.bmp");
@@ -158,6 +166,5 @@ int main(void) {
   add_cross_image(file_header, info_header, bitmap_image, (PIXEL_t){0, 0, 0}, "images/crossblack.bmp");
   add_cross_image(file_header, info_header, bitmap_image, (PIXEL_t){255, 0, 0}, "images/crossblue.bmp");
 
-  fclose(file);
   return 0;
 }

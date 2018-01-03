@@ -37,7 +37,7 @@ uint64_t count_primes(uint64_t upperbound) {
   size  = delta / 32 + 1;
   primes = malloc(sizeof(uint32_t) * size);
 
-  if ((upperbound & 1 ) == 0)
+  if ((upperbound & 1) == 0)
     upperbound--;
   if (upperbound >= 2)
     counter = 1;
@@ -87,7 +87,7 @@ int main(int argc, char** argv) {
   int64_t nbr = atoll(argv[1]);
 
   beginning = clock();
-  printf("Number of primes up to %s%ld: %s%ld%s\n", KYEL, nbr, KCYN,count_primes(nbr), KRESET);
+  printf("Number of primes up to %s%ld: %s%ld%s\n", KYEL, nbr, KCYN, count_primes(nbr), KRESET);
   end = clock();
   duration = (double)(end - beginning) / CLOCKS_PER_SEC;
   printf("%sTotal time elapsed since the starting of the program: %s%lf seconds.\n%s", KWHT, KYEL, duration, KRESET);
